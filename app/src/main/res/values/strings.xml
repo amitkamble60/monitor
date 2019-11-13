@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">dataMonitorApp</string>
+    <string name="data_usage">Data Usage</string>
+    <string name="mb">MB</string>
+    <string name="memory_usage">Memory Usage</string>
+    <string name="storage_remaining">Storage Remaining</string>
 </resources>

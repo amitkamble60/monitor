@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.StatFs;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -85,8 +86,16 @@ public class MonitorUtil {
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    public static float getTotalStorageAvailable() {
-        return getStorageAvailable(Environment.getDataDirectory());
+    public static float getTotalStorageAvailable(Context context) {
+
+        if (hasRealRemovableSdCard(context))
+            return getStorageAvailable(Environment.getDataDirectory()) + getStorageAvailable(Environment.getExternalStorageDirectory());
+        else
+            return getStorageAvailable(Environment.getDataDirectory());
+    }
+
+    private static boolean hasRealRemovableSdCard(Context context) {
+        return ContextCompat.getExternalFilesDirs(context, null).length >= 2;
     }
 
     private static float getStorageAvailable(File f) {
